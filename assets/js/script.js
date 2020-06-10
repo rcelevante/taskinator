@@ -17,7 +17,7 @@ var taskFormHandler = function(event) {
       type: taskTypeInput
     };
   
-    // send it as an argument to createTaskEl
+    
     createTaskEl(taskDataObj);
 }
 var createTaskEl = function(taskDataObj) {
