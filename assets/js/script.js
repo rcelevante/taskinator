@@ -33,8 +33,6 @@ var taskFormHandler = function(event) {
         } 
          
 };  
- 
-
 var createTaskEl = function(taskDataObj) {
     var listItemEl = document.createElement("li");            
         listItemEl.className = "task-item";
@@ -133,19 +131,7 @@ var editTask = function(taskId) {
         document.querySelector("select[name='task-type']").value = taskType;
         document.querySelector("#save-task").textContent = "Save Task";
         formEl.setAttribute("data-task-id", taskId);
-    // get task list item element
-    //console.log("editing task #" + taskId); 
-    //var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
-
-    //var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
-// get content from task name and type
-   // var taskName = taskSelected.querySelector("h3.task-name").textContent;
-       // document.querySelector("input[name='task-name']").value = taskName;
-
-    //var taskType = taskSelected.querySelector("span.task-type").textContent;
-       // document.querySelector("select[name='task-type']").value = taskType;
-       // document.querySelector("#save-task").textContent = "Save Task";
-       // formEl.setAttribute("data-task-id", taskId);
+    
 };
 
 var completeEditTask = function(taskName, taskType, taskId) {
@@ -191,7 +177,7 @@ var dropZoneDragHandler = function(event) {
     var taskListEl = event.target.closest(".task-list");
         if (taskListEl) {
         event.preventDefault();
-        
+        taskListEl.setAttribute("style", "background: rgba(68, 233, 255, 0.7); border-style: dashed;");
     }
 };
 
@@ -211,10 +197,19 @@ var dropTaskHandler = function(event) {
         else if (statusType === "tasks-completed") {
             statusSelectEl.selectedIndex = 2;
         }
+        dropZoneEl.removeAttribute("style");
+
         dropZoneEl.appendChild(draggableElement);
 };
 
+var dragLeaveHandler = function(event) {
+    var taskListEl = event.target.closest(".task-list");
+        if (taskListEl) {
+        taskListEl.removeAttribute("style");
+}
+}
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 pageContentEl.addEventListener("dragstart", dragTaskHandler);
 pageContentEl.addEventListener("dragover", dropZoneDragHandler);
 pageContentEl.addEventListener("drop", dropTaskHandler);
+pageContentEl.addEventListener("dragleave", dragLeaveHandler);
