@@ -253,6 +253,16 @@ var saveTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
+var loadTasks = function() {
+    var savedTasks = localStorage.getItem("tasks");
+  
+    if (!savedTasks) {
+      return false;
+    }
+  
+    savedTasks = JSON.parse(savedTasks);
+}
+
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 pageContentEl.addEventListener("dragstart", dragTaskHandler);
 pageContentEl.addEventListener("dragover", dropZoneDragHandler);
